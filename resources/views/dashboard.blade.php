@@ -6,7 +6,7 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
-                <a href="{{ url('sales') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
+                <a href="{{ url('sales/create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
             <form action="{{ url('/')}}" method="GET">
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
@@ -57,10 +57,10 @@
                         R$ <span class="price_sale">{{(($s->price_product * $s->quantity_sale)-$s->discounts_sale)}}</span>
                     </td>
                     <td>
-                        <a href="/sales/edit/{{$s->id_sale}}" class='btn btn-primary'  style=" float: left; margin-left:50px; margin-right: -30px" >Editar</a>
+                        <a href="/sales/{{$s->id_sale}}/edit" class='btn btn-primary'  style=" float: left; margin-left:50px; margin-right: -30px" >Editar</a>
                     </td>
                     <td>
-                        <form action="/sales/delete/{{$s->id_sale}}" method="post" class="formulario">
+                        <form action="/sales/{{$s->id_sale}}" method="post" class="formulario">
                             @csrf
                             @method('delete')
                         <button class="btn btn-danger" style=" float: left;">Excluir</button>
@@ -106,7 +106,7 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Produtos
-                <a href="{{ url('products') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
+                <a href="{{ url('products/create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
             <table class='table'>
                 <tr>
                     <th scope="col">
@@ -136,10 +136,10 @@
                        R$ <span class="price_product"> {{$p->price_product}}</span>
                     </td>
                     <td>
-                        <a href="/products/edit/{{$p->id_product}}" class='btn btn-primary' style=" float: left; margin-left:50px; margin-right: -30px">Editar</a>
+                        <a href="/products/{{$p->id_product}}/edit" class='btn btn-primary' style=" float: left; margin-left:50px; margin-right: -30px">Editar</a>
                     </td>
                     <td>
-                        <form action="/products/delete/{{$p->id_product}}" method="post" class="formulario">
+                        <form action="/products/{{$p->id_product}}" method="post" class="formulario">
                             @csrf
                             @method('delete')
                         <button class="btn btn-danger" style=" float: left;">Excluir</button>

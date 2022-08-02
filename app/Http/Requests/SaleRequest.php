@@ -25,13 +25,13 @@ class SaleRequest extends FormRequest
     {
         return [
             'date_sale' => ['required'],
-            'product_id' => ['required', 'integer'],
+            'product_id' => ['required'],
             'name_client' => ['required'],
             'email_client' => ['required', 'email:rfc,dns'],
             'cpf_client' => ['required','cpf'],
             'quantity_sale' => ['required'],
             'discounts_sale' => ['required'],
-            'status_sale' => ['required', 'interger'],
+            'status_sale' => ['required'],
         ];
     }
 

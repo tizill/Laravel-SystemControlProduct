@@ -2,11 +2,12 @@
 
 @section('content')
 {{-- FORM EDITAR --}}
-@if(Request::is('*/edit/*'))
+@if(Request::is('*/edit'))
     <h1>Editar Produto</h1>
     <div class='card'>
         <div class='card-body'>
-            <form action="{{ url('products/update') }}/{{ $edit->id_product }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('products') }}/{{ $edit->id_product }}" method="post" enctype="multipart/form-data">
+                @method('patch')
                 @csrf
                 <div class="form-group">
                     <label for="name_product">Nome do produto</label>

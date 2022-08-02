@@ -70,10 +70,10 @@ class SaleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_sale)
+    public function edit($sale)
     {
         $editProduct = product::get();
-        $edit = sale::findOrFail($id_sale);
+        $edit = sale::findOrFail($sale);
         return view('crud_sales', ['edit' => $edit, 'editProduct'=> $editProduct]);
     }
 

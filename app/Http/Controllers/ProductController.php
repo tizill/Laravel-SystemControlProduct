@@ -74,9 +74,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_product)
+    public function edit($product)
     {
-        $edit = product::findOrFail($id_product);
+        $edit = product::findOrFail($product);
         return view('crud_products', ['edit' => $edit]);
     }
 

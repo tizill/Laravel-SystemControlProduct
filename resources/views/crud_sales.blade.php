@@ -1,11 +1,12 @@
 @extends('layout')
 @section('content')
 
-@if(Request::is('*/edit/*'))
+@if(Request::is('*/edit'))
     <h1>Editar Venda</h1>
     <div class='card'>
         <div class='card-body'>
-            <form action="{{url('sales/update') }}/{{ $edit->id_sale }}" method="post">
+            <form action="{{url('sales') }}/{{ $edit->id_sale }}" method="post">
+                @method('patch')
                 @csrf
                 <h5>Informações do cliente</h5>
                 <div class="form-group">

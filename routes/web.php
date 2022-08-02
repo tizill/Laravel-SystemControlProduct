@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,16 +20,8 @@ Telas para ver o funcionamento sem dados
 */
 Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
 
-//SALES ROUTE
-Route::get('/sales',  [App\Http\Controllers\SaleController::class, 'create']);
-Route::post('/sales',  [App\Http\Controllers\SaleController::class, 'store']);
-Route::get('/sales/edit/{id_sale}', [\App\Http\Controllers\SaleController::class, 'edit']);
-Route::post('/sales/update/{id_sale}', [\App\Http\Controllers\SaleController::class, 'update']);
-Route::delete('/sales/delete/{id_sale}', [\App\Http\Controllers\SaleController::class, 'destroy']);
+//SALES ROUTE RESOURCE 
+Route::resource('/sales', SaleController::class);
 
-//PRODUCTS ROUTE
-Route::get('/products', [App\Http\Controllers\ProductController::class, 'create']);
-Route::post('/products', [App\Http\Controllers\ProductController::class, 'store']);
-Route::get('/products/edit/{id_product}', [\App\Http\Controllers\ProductController::class, 'edit']);
-Route::post('/products/update/{id_product}', [\App\Http\Controllers\ProductController::class, 'update']);
-Route::delete('/products/delete/{id_product}', [\App\Http\Controllers\ProductController::class, 'destroy']);
+// RESOURCE PRODUCTS ROUTE
+Route::resource('/products', ProductController::class);
