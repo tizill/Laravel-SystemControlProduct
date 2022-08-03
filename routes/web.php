@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
-
+use App\Http\Middleware\LogAccessMiddleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +21,7 @@ Telas para ver o funcionamento sem dados
 Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
 
 //SALES ROUTE RESOURCE 
-Route::resource('/sales', SaleController::class);
+Route::middleware(LogAccessMiddleware::class)->resource('/sales', SaleController::class);
 
 // RESOURCE PRODUCTS ROUTE
-Route::resource('/products', ProductController::class);
+Route::middleware(LogAccessMiddleware::class)->resource('/products', ProductController::class);
