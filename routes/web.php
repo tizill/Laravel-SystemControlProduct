@@ -17,10 +17,15 @@ use App\Http\Controllers\SaleController;
 /*
 Telas para ver o funcionamento sem dados
 */
-Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
+Route::middleware('authentication')->get('/', [App\Http\Controllers\DashboardController::class, 'index']);
+
+//LOGIN ROUTE
+Route::get('/login/{erro?}', [App\Http\Controllers\LoginController::class, 'index'])->name('login');
+Route::post('/login', [App\Http\Controllers\LoginController::class, 'authentication']);
+Route::get('/exit', [App\Http\Controllers\LoginController::class, 'exit']);
 
 //SALES ROUTE RESOURCE 
-Route::middleware('log.access')->resource('/sales', SaleController::class);
+Route::middleware('authentication','log.access')->resource('/sales', SaleController::class);
 
 // RESOURCE PRODUCTS ROUTE
-Route::middleware('log.access')->resource('/products', ProductController::class);
+Route::middleware('authentication','log.access')->resource('/products', ProductController::class);
