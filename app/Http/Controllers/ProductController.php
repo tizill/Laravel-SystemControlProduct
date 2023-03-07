@@ -38,21 +38,19 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        if($request->hasFile('image_product')) {
-            $filenameWithExt = $request->file('image_product')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('image_product')->getClientOriginalExtension();
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            $path = $request->file('image_product')->storeAs('public/image', $fileNameToStore);
-        }else{
-            $fileNameToStore = 'noimage.png';
+        $product = new Product();
+        $product->name_product = $request->name_product;
+        $product->description_product = $request->description_product;
+        $product->price_product = str_replace(".", "", str_replace(",", "", $request->price_product));
+
+        if ($request->hasFile('image_product')) {
+            $image = $request->file('image_product');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('images', $filename, 's3');
         }
-        product::create([
-            'name_product' => $request->name_product,
-            'description_product' => $request->description_product,
-            'price_product' =>  str_replace("." , "" ,str_replace("," , "" ,$request->price_product)),
-            'image_product' => $fileNameToStore,
-        ]);
+        $product->image_product = $path ?? "";
+
+        $product->save();
 
         return Redirect::to('/');
     }
@@ -66,6 +64,22 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function image($id)
+    {
+        $product = Product::findOrFail($id);
+
+        $image = Storage::disk('s3')->get($product->image_product);
+
+        return response($image, 200)->header('Content-Type', 'image/jpeg');
     }
 
     /**
@@ -91,7 +105,7 @@ class ProductController extends Controller
     {
         $update = product::findOrFail($id_product);
 
-        if($request->hasFile('image_product')) {  
+        if($request->hasFile('image_product')) {
             $filenameWithExt = $request->file('image_product')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('image_product')->getClientOriginalExtension();

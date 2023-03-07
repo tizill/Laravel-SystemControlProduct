@@ -127,7 +127,7 @@
                 @foreach ($product as $p)
                 <tr>
                     <td>
-                        <img src="/storage/image/{{$p->image_product}}" style="max-width: 75px" />
+                        <img src="{{ route('imagem.show', ['id' => $p->id_product]) }}" alt="Imagem do produto" style="max-width: 75px">
                     </td>
                     <td>
                         {{$p->name_product}}

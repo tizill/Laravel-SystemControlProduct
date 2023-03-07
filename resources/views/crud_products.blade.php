@@ -85,8 +85,13 @@
                 </div>
                 <div class="form-group">
                     <label for="image_product">Imagem Do Produto (jpg, jpeg)</label>
-                    <input type="file" class="form-control-file" id="image_product" name="image_product"  >
+                    <input type="file" class="form-control-file @error('image_product') is-invalid @enderror" id="image_product" name="image_product"  >
                 </div>
+                @if ($errors->has('image_product'))
+                    <div class="alert alert-danger">
+                        <strong>{{ $errors->first('image_product') }}</strong>
+                    </div>
+                @endif
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
         </div>
