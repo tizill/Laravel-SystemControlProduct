@@ -24,8 +24,11 @@ Route::get('/login/{erro?}', [App\Http\Controllers\LoginController::class, 'inde
 Route::post('/login', [App\Http\Controllers\LoginController::class, 'authentication']);
 Route::get('/exit', [App\Http\Controllers\LoginController::class, 'exit']);
 
-//SALES ROUTE RESOURCE 
+//SALES ROUTE RESOURCE
 Route::middleware('authentication','log.access')->resource('/sales', SaleController::class);
 
 // RESOURCE PRODUCTS ROUTE
 Route::middleware('authentication','log.access')->resource('/products', ProductController::class);
+
+// ROUTE IMAGE
+Route::get('/imagem/{id}', [App\Http\Controllers\ProductController::class, 'image'])->name('imagem.show');
